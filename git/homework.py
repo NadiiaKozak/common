@@ -4,6 +4,8 @@ This is a list of functions that should be completed.
 
 from typing import Any
 from typing import List
+from string import ascii_lowercase
+
 
 
 class OurAwesomeException(Exception):
@@ -15,10 +17,7 @@ def is_two_object_has_same_value(first: Any, second: Any) -> bool:
     If @first and @second has same value should return True
     In another case should return False
     """
-    if first == second :
-        return True
-    else :
-        return False
+    return first==second
     
 
 
@@ -27,21 +26,15 @@ def is_two_objects_has_same_type(first: Any, second: Any) -> bool:
     If @first and @second has same type should return True
     In another case should return False
     """
-    if type(first)==type(second):
-        return True
-    else :
-        return False
-
+    return type(first)==type(second)
+        
 
 def is_two_objects_is_the_same_objects(first: Any, second: Any) -> bool:
     """
     If @first and @second has same type should return True
     In another case should return False
     """
-    if id(first)==id(second):
-        return True
-    else:
-        return False
+    return first is second
     
 
 
@@ -59,17 +52,13 @@ def multiple_ints(first_value: int, second_value: int) -> int:
     Returns:
         Product of elements
     """
-    #try:
-        #raise ValueError
-    if type(first_value)is not int:
-        raise ValueError('no int')
-    elif type(second_value)is not int:
-        raise ValueError('no int')
-    else: 
-        mult=first_value*second_value
-        return mult                 
-    #except ValueError:
-    #    print('no int')
+    
+    if type(first_value)==int and type(second_value)==int:
+       return first_value*second_value
+    
+    else:
+        raise ValueError('value is not int')
+   
     
     
       
@@ -104,13 +93,11 @@ def multiple_ints_with_conversion(first_value: Any, second_value: Any) -> int:
         >>> "Not valid input data"
     """
     try:
-        first_value1=int(first_value)
-        second_value1=int(second_value)
-        mult=first_value1*second_value1
-        return mult
         
-    except TypeError :
-        print(" is not possible to convert arguments to int value")
+        return int(first_value)*int(second_value)
+        
+    except TypeError:
+        raise ValueError(" is not possible to convert arguments to int value")
         
 
 def is_word_in_text(word: str, text: str) -> bool:
@@ -129,10 +116,8 @@ def is_word_in_text(word: str, text: str) -> bool:
         >>> False
 
     """
-    if word in text:
-        return True
-    else:
-        return False
+    return word in text
+        
         
 
 
@@ -168,10 +153,10 @@ def alphabet() -> dict:
         >>> {"a": 1, "b": 2 ...}
     """
     number=[i for i in range(1,27)]
-    alphabetic=list(str('qwertyuiopasdfghjklzxcvbnm'))
-    alphabetic.sort()
-    vvv1=dict(zip(number,alphabetic,))
-    return vvv1
+    #alphabetic=list(str('qwertyuiopasdfghjklzxcvbnm'))
+    #alphabetic.sort()
+    return dict(zip(number,ascii_lowercase))
+   
     
 
 
@@ -185,21 +170,15 @@ def simple_sort(data: List[int]) -> list:
 
     """
     L=data
-    i=0
-    j=0
-    z=len(L)
+    lendata=len(L)
 
-    while i<z-1:
-        while j<z-1:
-            jjj=L[j]
-            kkk=L[j+1]
-            if jjj>kkk:
+    for i in range (lendata-1):
+        for j in range(lendata-1-i):
+            if L[j]>L[j+1]:
                k=L[j]
                L[j]=L[j+1]
                L[j+1]=k
-            j+=1    
-        i+=1
-        j=0
+
     return L
               
               
