@@ -17,7 +17,7 @@ def is_two_object_has_same_value(first: Any, second: Any) -> bool:
     If @first and @second has same value should return True
     In another case should return False
     """
-    return first==second
+    return first == second
     
 
 
@@ -26,7 +26,7 @@ def is_two_objects_has_same_type(first: Any, second: Any) -> bool:
     If @first and @second has same type should return True
     In another case should return False
     """
-    return type(first)==type(second)
+    return type(first) == type(second)
         
 
 def is_two_objects_is_the_same_objects(first: Any, second: Any) -> bool:
@@ -53,8 +53,8 @@ def multiple_ints(first_value: int, second_value: int) -> int:
         Product of elements
     """
     
-    if type(first_value)==int and type(second_value)==int:
-       return first_value*second_value
+    if type(first_value) == int and type(second_value)==int:
+       return first_value * second_value
     
     else:
         raise ValueError('value is not int')
@@ -94,7 +94,7 @@ def multiple_ints_with_conversion(first_value: Any, second_value: Any) -> int:
     """
     try:
         
-        return int(first_value)*int(second_value)
+        return int(first_value) * int(second_value)
         
     except TypeError:
         raise ValueError(" is not possible to convert arguments to int value")
@@ -125,7 +125,7 @@ def some_loop_exercise() -> list:
     """
     Use loop to create list that contain int values from 0 to 12 except 6 and 7
     """
-    L=[i for i in range (13)]
+    L = [i for i in range (13)]
     del L[6:8]
     return L
 
@@ -140,7 +140,7 @@ def remove_from_list_all_negative_numbers(data: List[int]) -> list:
         >>> [1, 5, 8]
     """
     L=data
-    V=list(filter(lambda x: x>=0,L))
+    V=list(filter(lambda x: x >= 0, L))
     return V    
 
 
@@ -169,15 +169,15 @@ def simple_sort(data: List[int]) -> list:
     Returns:
 
     """
-    L=data
-    lendata=len(L)
+    L = data
+    lendata = len(L)
 
     for i in range (lendata-1):
         for j in range(lendata-1-i):
-            if L[j]>L[j+1]:
-               k=L[j]
-               L[j]=L[j+1]
-               L[j+1]=k
+            if L[j] > L[j+1]:
+               k = L[j]
+               L[j] = L[j+1]
+               L[j+1] = k
 
     return L
               
