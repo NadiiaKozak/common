@@ -7,7 +7,6 @@ from typing import List
 from string import ascii_lowercase
 
 
-
 class OurAwesomeException(Exception):
     pass
 
@@ -51,18 +50,12 @@ def multiple_ints(first_value: int, second_value: int) -> int:
         second_value
     Returns:
         Product of elements
-    """
-    
-    if type(first_value) == int and type(second_value)==int:
-       return first_value * second_value
-    
-    else:
-        raise ValueError('value is not int')
-   
-    
-    
-      
-        
+    """    
+    try:
+        return int(first_value) * int(second_value)
+    except TypeError:
+        raise ValueError('value is not int') 
+              
 
 
 def multiple_ints_with_conversion(first_value: Any, second_value: Any) -> int:
@@ -92,10 +85,8 @@ def multiple_ints_with_conversion(first_value: Any, second_value: Any) -> int:
             print("Not valid input data")
         >>> "Not valid input data"
     """
-    try:
-        
-        return int(first_value) * int(second_value)
-        
+    try:        
+        return int(first_value) * int(second_value)        
     except TypeError:
         raise ValueError(" is not possible to convert arguments to int value")
         
@@ -116,8 +107,7 @@ def is_word_in_text(word: str, text: str) -> bool:
         >>> False
 
     """
-    return word in text
-        
+    return word in text       
         
 
 
@@ -153,11 +143,8 @@ def alphabet() -> dict:
         >>> {"a": 1, "b": 2 ...}
     """
     number=[i for i in range(1,27)]
-    #alphabetic=list(str('qwertyuiopasdfghjklzxcvbnm'))
-    #alphabetic.sort()
     return dict(zip(number,ascii_lowercase))
-   
-    
+      
 
 
 def simple_sort(data: List[int]) -> list:
@@ -171,14 +158,12 @@ def simple_sort(data: List[int]) -> list:
     """
     L = data
     lendata = len(L)
-
     for i in range (lendata-1):
         for j in range(lendata-1-i):
             if L[j] > L[j+1]:
                k = L[j]
                L[j] = L[j+1]
                L[j+1] = k
-
     return L
               
               
