@@ -7,7 +7,7 @@ from homework import Rectangle
 
 
 class MyTestCase(unittest.TestCase):
-    
+
     def setUp(self):
         self.arg_list = [
             {'args': [5, 8],
@@ -32,15 +32,13 @@ class MyTestCase(unittest.TestCase):
 
     def test_get_rectangle_perimeter(self):
         for i in self.arg_list:
-            val = [v for v in i.values() if isinstance(v, list)]
-            rect = Rectangle(val[0][0], val[0][1])
+            rect = Rectangle(*i['args'])
             result1 = rect.get_rectangle_perimeter()
             self.assertEqual(result1, i['perimeter'])  # test rectangle perimeter
 
     def test_get_rectangle_square(self):
         for i in self.arg_list:
-            val = [v for v in i.values() if isinstance(v, list)]
-            rect = Rectangle(val[0][0], val[0][1])
+            rect = Rectangle(*i['args'])
             result2 = rect.get_rectangle_square()
             self.assertEqual(result2, i['square'])  # test rectangle square
 
@@ -61,30 +59,32 @@ class MyTestCase(unittest.TestCase):
 
     def test_get_rectangle_diagonal(self):
         for i in self.arg_list:
-            val = [v for v in i.values() if isinstance(v, list)]
-            rect = Rectangle(val[0][0], val[0][1])
+            rect = Rectangle(*i['args'])
             result3 = rect.get_rectangle_diagonal()
             self.assertEqual(result3, i['diagonal'])  # test rectangle diagonal
 
 
     def test_get_radius_of_circumscribed_circle(self):
         for i in self.arg_list:
-            val = [v for v in i.values() if isinstance(v, list)]
-            rect = Rectangle(val[0][0], val[0][1])
+            rect = Rectangle(*i['args'])
             result4 = rect.get_radius_of_circumscribed_circle()
             self.assertEqual(result4, i['radius_of_circumscribed_circle'])  # test radius_of_circumscribed_circle
 
 
     def test_get_radius_of_inscribed_circle(self):
         for i in self.arg_list:
-            val = [v for v in i.values() if isinstance(v, list)]
-            rect = Rectangle(val[0][0], val[0][1])
-            if val[0][0] == val[0][1]:
+            rect = Rectangle(*i['args'])
+            if i['args'][0] == i['args'][1]:
                 result5 = rect.get_radius_of_inscribed_circle()
                 self.assertEqual(result5, i['radius_of_inscribed_circle'])  # test radius_of_inscribed_circle
-            else:
+
+    def test_get_radius_of_inscribed_circle_error(self):
+        for i in self.arg_list:
+            rect = Rectangle(*i['args'])
+            if i['args'][0] != i['args'][1]:
                 with self.assertRaises(ValueError):
                     rect.get_radius_of_inscribed_circle()
+
 
 
 if __name__ == '__main__':
