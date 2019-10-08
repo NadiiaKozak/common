@@ -62,10 +62,6 @@ def task_6_min_value_list_of_dicts(data: DT, key: str) -> ST:
     Returns:
 
     """
-    '''l = []
-    for i in range(len(data)):
-        if key in data[i]:
-            l.append(data[i][key])'''
     l = [i[key] for i in data if key in i.keys()]
     return (task_3_find_item_via_value(data, min(l))[0])
 
