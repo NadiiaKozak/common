@@ -1,4 +1,7 @@
+from sys import exit
+
 class Cat:
+
     """
     Write Class Cat which will receive age from user
     * Add to class average_speed variable which will get it's values
@@ -37,11 +40,16 @@ class Cat:
     * Implement get_average_speed and return average_speed
 
     """
-    saturation_level = 50
+    product_dict = {
+        'fodder': 10,
+        'apple': 5,
+        'milk': 2
+         }
 
     def __init__(self, age):
         self.age = age
         self.average_speed = self._set_average_speed()
+        self.saturation_level = 50
 
     def _reduce_saturation_level(self, level):
         self.saturation_level = self.saturation_level - level
@@ -54,12 +62,7 @@ class Cat:
             self.saturation_level = 100
 
     def eat(self, product):
-        if product == 'fodder':
-            self._increase_saturation_level(10)
-        elif product == 'apple':
-            self._increase_saturation_level(5)
-        elif product == 'milk':
-            self._increase_saturation_level(2)
+        self._increase_saturation_level(self.product_dict.get(product, 0))
 
     def _set_average_speed(self):
         if self.age <= 7:
@@ -79,15 +82,14 @@ class Cat:
             self._reduce_saturation_level(15)
         elif 100 < run_km <= 200:
             self._reduce_saturation_level(25)
-        elif run_km > 200:
+        else:
             self._reduce_saturation_level(50)
         return f"Your cat ran {run_km} kilometers"
 
     def get_saturation_level(self):
         if self.saturation_level > 0:
             return self.saturation_level
-        else:
-            return "Your cat is died :("
+        return "Your cat is died :("
 
     def get_average_speed(self):
         return self.average_speed
@@ -107,6 +109,10 @@ class Cheetah(Cat):
       if age grosser 15(not including) return 40
 
     """
+    product_dict = {
+        'gazelle': 30,
+        'rabbit': 15
+          }
 
     def _set_average_speed(self):
         if self.age <= 5:
@@ -117,10 +123,7 @@ class Cheetah(Cat):
             return 40
 
     def eat(self, product):
-        if product == 'gazelle':
-            super()._increase_saturation_level(30)
-        elif product == 'rabbit':
-            super()._increase_saturation_level(15)
+        super()._increase_saturation_level(self.product_dict.get(product, 0))
 
 
 
