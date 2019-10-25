@@ -1,11 +1,7 @@
 from flask import Flask, render_template
 
 app = Flask(__name__)
-
-@app.route('/base')
-def get_base_page():
-    return render_template('base.html')
-
+пше
 @app.route('/home')
 def get_home_page():
     return render_template('home.html')
