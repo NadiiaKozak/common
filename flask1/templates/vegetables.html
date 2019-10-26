@@ -1,8 +1,8 @@
 {% extends "base.html"%}
-{{list}}
+
 {% block info%}
 <ul>
-    {% for i in list%}
+    {% for i in list_vagetables%}
         {% if i == 'beetroot'%}
             <li style="text-transform: uppercase;">{{i}} </li>
         {% else%}
