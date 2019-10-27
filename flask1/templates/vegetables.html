@@ -1,0 +1,13 @@
+{% extends "base.html"%}
+
+{% block info%}
+<ul>
+    {% for i in list_vagetables%}
+        {% if i == 'beetroot'%}
+            <li style="text-transform: uppercase;">{{i}} </li>
+        {% else%}
+            <li>{{i}}</li>
+        {% endif%}
+    {% endfor%}
+</ul>
+{% endblock%}

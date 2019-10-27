@@ -1,0 +1,7 @@
+{% extends "base.html"%}
+
+{% block info%}
+<p><big>Запрошуємо Вас відвідати наші сторінки:</big></p>
+<li><a href="{{ url_for('get_vegetables_page') }}">VEGETABLES</a></li>
+<li><a href="{{ url_for('get_fruits_page') }}">FRUITS</a></li>
+{% endblock%}
