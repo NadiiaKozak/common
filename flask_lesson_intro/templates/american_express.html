@@ -1,0 +1,14 @@
+{% extends "base.html"%}
+{% block title %}American Express{% endblock %}
+{% block info%}
+<h1 style="text-align:center;">American Express </h1>
+<div id="images">
+<img src="{{url_for('static', filename='american.jpg')}}" usemap="#image-map" width="280px" height="150px">
+</div>
+<br>
+{% for i in data %}
+{%if i['title'] == 'American Express'%}
+<p>{{i['text']}}</p>
+{% endif%}
+{% endfor%}
+{% endblock%}

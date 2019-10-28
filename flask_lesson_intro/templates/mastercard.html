@@ -1,0 +1,14 @@
+{% extends "base.html"%}
+{% block title %}Visa{% endblock %}
+{% block info%}
+<h1 style="text-align:center;">MasterCard International </h1>
+<div id="images">
+<img src="{{url_for('static', filename='mc.png')}}" usemap="#image-map" width="280px" height="150px">
+</div>
+<br>
+{% for i in data %}
+{%if i['title'] == 'MasterCard'%}
+<p>{{i['text']}}</p>
+{% endif%}
+{% endfor%}
+{% endblock%}

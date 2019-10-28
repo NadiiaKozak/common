@@ -1,0 +1,14 @@
+{% extends "base.html"%}
+{% block title %}Maestro{% endblock %}
+{% block info%}
+<h1 style="text-align:center;">Maestro</h1>
+<div id="images">
+<img src="{{url_for('static', filename='maestro.jpeg')}}" usemap="#image-map" width="280px" height="150px">
+</div>
+<br>
+{% for i in data %}
+{%if i['title'] == 'Maestro'%}
+<p>{{i['text']}}</p>
+{% endif%}
+{% endfor%}
+{% endblock%}
