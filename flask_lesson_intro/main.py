@@ -15,7 +15,7 @@ def get_visa_page():
     title = 'Visa'
     for i in get_data():
         if i['title'] == title:
-            return render_template("visa.html", picture=picture, title=title, text=i['text'] )
+            return render_template("cards.html", picture=picture, title=title, text=i['text'] )
 
 
 @app.route('/mastercard')
@@ -24,7 +24,7 @@ def get_mastercard_page():
     title = 'MasterCard'
     for i in get_data():
         if i['title'] == title:
-            return render_template("mastercard.html", picture=picture, title=title, text=i['text'])
+            return render_template("cards.html", picture=picture, title=title, text=i['text'])
 
 
 @app.route('/american_express')
@@ -33,7 +33,7 @@ def get_american_express_page():
     title = 'American Express'
     for i in get_data():
         if i['title'] == title:
-            return render_template("american_express.html", picture=picture, title=title, text=i['text'])
+            return render_template("cards.html", picture=picture, title=title, text=i['text'])
 
 
 @app.route('/maestro')
@@ -42,7 +42,7 @@ def get_maestro_page():
     title = 'Maestro'
     for i in get_data():
         if i['title'] == title:
-            return render_template("maestro.html", picture=picture, title=title, text=i['text'])
+            return render_template("cards.html", picture=picture, title=title, text=i['text'])
 
 
 @app.route('/paypal')
@@ -51,7 +51,7 @@ def get_paypal_page():
     title = 'PayPal'
     for i in get_data():
         if i['title'] == title:
-            return render_template("paypal.html", picture=picture, title=title, text=i['text'])
+            return render_template("cards.html", picture=picture, title=title, text=i['text'])
 
 
 @app.route('/discover')
@@ -60,7 +60,7 @@ def get_discover_page():
     title = 'Discover'
     for i in get_data():
         if i['title'] == title:
-            return render_template("paypal.html", picture=picture, title=title, text=i['text'])
+            return render_template("cards.html", picture=picture, title=title, text=i['text'])
 
 
 @app.route('/author')
