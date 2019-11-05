@@ -1,12 +1,13 @@
 {% extends "base.html"%}
 {% block title %}Products{% endblock %}
-{% block info%}
-<body>
-        {% block navbar%}
+ {% block navbar%}
 		<li class="nav-item">
                 <a class="nav-link" href="products">ALL PRODUCTS</a>
 		</li>
 		{% endblock%}
+{% block info%}
+<body>
+
 <h1 style="text-align:center;">{{title}}</h1>
 <div id="images">
     {% set picture = picture %}

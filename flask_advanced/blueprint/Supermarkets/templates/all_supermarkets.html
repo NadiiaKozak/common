@@ -12,13 +12,12 @@
 
 <ul>
     {% for k in supermarkets%}
-    {% set picture = k["img_name"] %}
-    <img src="{{url_for('supermarket.static', filename=picture)}}" width="280px" height="150px">
-    {% set name_supermarket = k["name"] %}
-    <li><a href="{{url_for('supermarket.get_supermarket', name_supermarket = name_supermarket) }}">{{k['name']}}</a></li>
-    <p>location: {{k['location']}}</p>
-    <br>
+        {% set picture = k["img_name"] %}
+        <img src="{{url_for('supermarket.static', filename=picture)}}" width="280px" height="150px">
+        {% set name_supermarket = k["name"] %}
+        <li><a href="{{url_for('supermarket.get_supermarket', name_supermarket = name_supermarket) }}">{{k['name']}}</a></li>
+        <p>location: {{k['location']}}</p>
+        <br>
     {% endfor%}
-
 </ul>
 {% endblock%}

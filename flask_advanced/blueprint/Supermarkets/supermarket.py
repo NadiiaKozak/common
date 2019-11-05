@@ -10,12 +10,12 @@ supermarket = Blueprint("supermarket", __name__, template_folder='templates', st
 data_supermarkets = get_data()
 
 
-@supermarket.route('/supermarkets', methods=['GET'])
+@supermarket.route('/s/supermarkets', methods=['GET'])
 def get_supermarkets():
     return render_template('all_supermarkets.html', supermarkets=get_data())
 
 
-@supermarket.route('/supermarkets', methods=['POST'])
+@supermarket.route('/s/supermarkets', methods=['POST'])
 def search_supermarkets():
     id_supermarket = request.form.get('id')
     location = request.form.get('location')
@@ -33,19 +33,21 @@ def search_supermarkets():
     return render_template('all_supermarkets.html', supermarkets=data, link_flags=session)
 
 
-@supermarket.route('/<name_supermarket>', methods=['GET'])
+@supermarket.route('/s/<name_supermarket>', methods=['GET'])
 def get_supermarket(name_supermarket):
     for i in get_data():
         if i["name"] == name_supermarket:
             return render_template('supermarket.html', supermarket=i)
+    else:
+        return redirect(url_for('supermarket.get_supermarkets'))
 
 
-@supermarket.route('/add_supermarket', methods=['GET'])
+@supermarket.route('/s/add_supermarket', methods=['GET'])
 def add_supermarket():
     return render_template('add_supermarket.html')
 
 
-@supermarket.route('/add_supermarket', methods=['POST'])
+@supermarket.route('/s/add_supermarket', methods=['POST'])
 def add_supermarket_post():
     new_supermarket = {"id": str(uuid.uuid4()), "name": request.form.get('name'),
                        "location": request.form.get('location')}

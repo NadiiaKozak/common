@@ -1,7 +1,8 @@
 import os
 import uuid
 
-from flask import Blueprint, render_template, request, session
+from flask import Blueprint, render_template, request, session, url_for, redirect
+
 
 from .utils import get_data, add_data
 
@@ -43,6 +44,9 @@ def get_product(name_product):
                                    text=i['description'],
                                    price=i['price'],
                                    id_product=i['id'])
+    else:
+        return redirect(url_for('product.get_products'))
+
 
 
 @product.route('/add_product', methods=['GET'])
@@ -60,6 +64,6 @@ def add_product_post():
     image.save(path)
     DB1.append(new_product)
     add_data(DB1)
-    return "product added"
+    return redirect(url_for('product.get_products'))
 
 
