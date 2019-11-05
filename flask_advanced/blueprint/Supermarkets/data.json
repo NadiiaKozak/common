@@ -1,0 +1,20 @@
+[
+    {
+        "id": "001",
+        "name": "ARSEN",
+        "location": "Lviv",
+        "img_name": "arsen.jpg"
+    },
+    {
+        "id": "002",
+        "name": "METRO",
+        "location": "Lviv",
+        "img_name": "Lviv_METRO.jpeg"
+    },
+    {
+        "id": "003",
+        "name": "METRO",
+        "location": "Kyiv",
+        "img_name": "metro.jpg"
+    }
+]

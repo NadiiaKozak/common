@@ -1,0 +1,24 @@
+{% extends "base_supermarket.html"%}
+{% block title %}Supermarkets{% endblock %}
+{% block info%}
+<h1>Supermarkets</h1>
+<a href="{{ url_for('supermarket.add_supermarket_post') }}">ADD NEW SUPERMARKET</a>
+
+<form method="post" enctype="multipart/form-data">
+			<p>Input location <input type="text" name="location" /></p>
+            <p>Input ID_supermarket <input type="text" name="id" /></p>
+			<input type="submit" value="Save">
+		</form>
+
+<ul>
+    {% for k in supermarkets%}
+    {% set picture = k["img_name"] %}
+    <img src="{{url_for('supermarket.static', filename=picture)}}" width="280px" height="150px">
+    {% set name_supermarket = k["name"] %}
+    <li><a href="{{url_for('supermarket.get_supermarket', name_supermarket = name_supermarket) }}">{{k['name']}}</a></li>
+    <p>location: {{k['location']}}</p>
+    <br>
+    {% endfor%}
+
+</ul>
+{% endblock%}

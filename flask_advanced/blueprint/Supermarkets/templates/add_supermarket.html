@@ -1,0 +1,18 @@
+{% extends "base_supermarket.html"%}
+{% block title %}add supermarkets{% endblock %}
+{% block navbar%}
+<li class="nav-item">
+    <a class="nav-link" href="supermarkets">ALL SUPERMARKETS</a>
+</li>
+
+{% endblock%}
+{% block info%}
+<body>
+<form method="post" enctype="multipart/form-data">
+    <p>Name supermarket <input type="text" name="name"/></p>
+    <p>Input location <input type="text" name="location"/></p>
+    <input type="file" name="image"/>
+    <input type="submit" value="Save">
+</form>
+</body>
+{% endblock%}

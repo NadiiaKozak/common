@@ -1,0 +1,25 @@
+{% extends "base.html"%}
+{% block title %}Products{% endblock %}
+{% block info%}
+<h1>Products</h1>
+<a href="{{ url_for('product.add_product_post') }}">ADD NEW PRODUCT</a>
+
+<form method="post" enctype="multipart/form-data">
+			<p>Input price <input type="text" name="price" /></p>
+            <p>Input ID_product <input type="text" name="id" /></p>
+			<input type="submit" value="Save">
+		</form>
+
+<ul>
+    {% for k in products%}
+    {% set picture = k["img_name"] %}
+    <img src="{{url_for('product.static', filename=picture)}}" width="280px" height="150px">
+    {% set name_product = k["name"] %}
+    <li><a href="{{ url_for('product.get_product', name_product = name_product) }}">{{k['name']}}</a></li>
+    <p>price «₴»: {{k['price']}}</p>
+    <br>
+    {% endfor%}
+
+    </ul>
+
+{% endblock%}

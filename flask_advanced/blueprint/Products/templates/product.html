@@ -1,0 +1,20 @@
+{% extends "base.html"%}
+{% block title %}Products{% endblock %}
+{% block info%}
+<body>
+        {% block navbar%}
+		<li class="nav-item">
+                <a class="nav-link" href="products">ALL PRODUCTS</a>
+		</li>
+		{% endblock%}
+<h1 style="text-align:center;">{{title}}</h1>
+<div id="images">
+    {% set picture = picture %}
+    <img src="{{url_for('product.static', filename=picture)}}" width="280px" height="150px">
+</div>
+<br>
+<p>{{text}}</p>
+<p>price «₴»: {{price}}</p>
+<p>id product: {{id_product}}</p>
+</body>
+{% endblock%}
