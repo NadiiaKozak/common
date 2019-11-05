@@ -1,21 +1,22 @@
 {% extends "base_supermarket.html"%}
-{% block title %}Supermarket{% endblock %}
-  {% block navbar%}
-		<li class="nav-item">
-                <a class="nav-link" href="supermarkets">ALL SUPERMARKETS</a>
-		</li>
-		{% endblock%}
+{% block title %}supermarket{% endblock %}
+{% block navbar%}
+<li class="nav-item">
+    <a class="nav-link" href="supermarkets">ALL SUPERMARKETS</a>
+
+</li>
+
+{% endblock%}
 {% block info%}
 <body>
 
-<h1 style="text-align:center;">{{title}}</h1>
-<div id="images">
-    {% set picture = picture %}
-    <img src="{{url_for('supermarket.static', filename=picture)}}" width="280px" height="150px">
-</div>
+<h1 style="text-align:center;">{{supermarket['name']}}</h1>
+
+{% set picture = supermarket['img_name'] %}
+<img src="{{url_for('supermarket.static', filename=picture)}}" width="280px" height="150px">
+<p>Name : {{supermarket['name']}}</p>
+<p>location: {{supermarket['location']}}</p>
 <br>
-<p>Location: {{location}}</p>
-<p>price «₴»: </p>
-<p>id supermarket: {{id_supermarket}}</p>
+
 </body>
 {% endblock%}
