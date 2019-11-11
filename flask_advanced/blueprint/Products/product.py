@@ -4,16 +4,17 @@ import uuid
 from flask import Blueprint, render_template, request, session, url_for, redirect
 
 
-from .utils import get_data, add_data
+from flask_advanced.utils import add_data, get_data
 
 product = Blueprint('product', __name__, template_folder='templates', static_folder='static1')
 
-DB1 = get_data()
+path_data_products = "blueprint/Products/data.json"
+DB1 = get_data(path_data_products)
 
 
 @product.route('/products', methods=['GET'])
 def get_products():
-    return render_template('all_products.html', products=get_data())
+    return render_template('all_products.html', products=get_data(path_data_products))
 
 
 @product.route('/products', methods=['POST'])
@@ -21,7 +22,7 @@ def search_products():
     id_product = request.form.get('id')
     price = request.form.get('price')
     data = []
-    for i in get_data():
+    for i in get_data(path_data_products):
         if i['id'] == id_product and i['price'] == price:
             session[i['id']] = True
             return render_template('all_products.html', products=i, link_flags=session)
@@ -36,7 +37,7 @@ def search_products():
 
 @product.route('/<name_product>', methods=['GET'])
 def get_product(name_product):
-    for i in get_data():
+    for i in get_data(path_data_products):
         if i['name'] == name_product:
             return render_template("product.html",
                                    picture=i['img_name'],
@@ -63,7 +64,7 @@ def add_product_post():
     path = os.path.join('blueprint/Products/static1', image.filename)
     image.save(path)
     DB1.append(new_product)
-    add_data(DB1)
+    add_data(DB1, path_data_products)
     return redirect(url_for('product.get_products'))
 
 

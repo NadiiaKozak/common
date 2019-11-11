@@ -3,16 +3,18 @@ import uuid
 
 from flask import Blueprint, render_template, request, session, url_for, redirect
 
-from .utils import get_data, add_data
+from flask_advanced.utils import get_data, add_data
 
 supermarket = Blueprint("supermarket", __name__, template_folder='templates', static_folder='static2')
 
-data_supermarkets = get_data()
+path_data_supermarkets = "blueprint/Supermarkets/data.json"
+
+data_supermarkets = get_data(path_data_supermarkets)
 
 
 @supermarket.route('/s/supermarkets', methods=['GET'])
 def get_supermarkets():
-    return render_template('all_supermarkets.html', supermarkets=get_data())
+    return render_template('all_supermarkets.html', supermarkets=get_data(path_data_supermarkets))
 
 
 @supermarket.route('/s/supermarkets', methods=['POST'])
@@ -20,7 +22,7 @@ def search_supermarkets():
     id_supermarket = request.form.get('id')
     location = request.form.get('location')
     data = []
-    for i in get_data():
+    for i in get_data(path_data_supermarkets):
         if i['id'] == id_supermarket and i['location'] == location:
             session[i['id']] = True
             return render_template('all_supermarkets.html', supermarkets=i, link_flags=session)
@@ -35,7 +37,7 @@ def search_supermarkets():
 
 @supermarket.route('/s/<name_supermarket>', methods=['GET'])
 def get_supermarket(name_supermarket):
-    for i in get_data():
+    for i in get_data(path_data_supermarkets):
         if i["name"] == name_supermarket:
             return render_template('supermarket.html', supermarket=i)
     else:
@@ -56,7 +58,7 @@ def add_supermarket_post():
     path = os.path.join('blueprint/Supermarkets/static2', image.filename)
     image.save(path)
     data_supermarkets.append(new_supermarket)
-    add_data(data_supermarkets)
+    add_data(data_supermarkets, path_data_supermarkets)
     return redirect(url_for('supermarket.get_supermarkets'))
 
 
