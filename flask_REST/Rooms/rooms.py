@@ -1,60 +1,62 @@
-import json
+from flask import request
+from flask_restful import Resource, reqparse, marshal_with
 
-from flask import Response
-from flask_restful import Resource, reqparse
-
-list_room = [{"Number": '001', "Level": 1, "Status": "free", "Price": 250.00},
-             {"Number": '002', "Level": 2, "Status": "closed", "Price": 500.00},
-             {"Number": "003", "Level": 3, "Status": "free", "Price": 500.00}]
+from Rooms.structure_rooms import room_structure, list_room, Room
 
 parser = reqparse.RequestParser()
-parser.add_argument('Number', location=['json'])
-parser.add_argument('Level', type=int,  location=['json'])
-parser.add_argument('Status',  location=['json'])
-parser.add_argument('Price', type=float,  location=['json'])
+parser.add_argument('room_number', location=['json'])
+parser.add_argument('level', type=int,  location=['json'])
+parser.add_argument('status',  location=['json'])
+parser.add_argument('price', type=float,  location=['json'])
 
 
 class Rooms(Resource):
-#get info about all rooms
+    #get info about all rooms
+    @marshal_with(room_structure)
     def get(self):
-        return Response(json.dumps(list_room), status=200)
+        return list_room
 
-
-#get information about a particular room
-#get information on all available rooms (use filter)
-#get information about all closed rooms (use filter)
+    # get information about a particular room
+    # get information on all available rooms (use filter)
+    # get information about all closed rooms (use filter)
+    @marshal_with(room_structure)
     def post(self):
         args = parser.parse_args()
-        num_room = [i for i in list_room if i['Number'] == args['Number']]
-        room_status = [i for i in list_room if i['Status'] == args['Status']]
+        result = [{'room_number': room.room_number, 'level': room.level, 'status': room.status,
+                   'price': room.price} for room in list_room]
+        num_room = [i for i in result if i['room_number'] == args['room_number']]
+        room_status = [i for i in result if i['status'] == args['status']]
         num_room.extend(room_status)
-        return Response(json.dumps(num_room), status=200) if num_room else "no such room "
+        return num_room if num_room else "no such room "
 
-#update your number information
+
+    #update your number information
+    @marshal_with(room_structure)
     def patch(self):
         args = parser.parse_args()
-        for i in list_room:
-            if i['Number'] == args['Number']:
-                if args['Status'] is not None:
-                    i['Status'] = args['Status']
-                if args['Price'] is not None:
-                    i['Price'] = args['Price']
-        return Response(json.dumps(list_room), status=200)
+        chenge_room = request.get_json()
+        for n, i in enumerate(list_room):
+            if i.room_number == args['room_number']:
+                list_room[n] = Room(**chenge_room)
+        return "the changes were successful"
 
-#add a new room
+    # add a new room
     def put(self):
-        args = parser.parse_args()
-        list_room.append(args)
-        return Response(json.dumps(list_room), status=200)
+        new_room = request.get_json()
+        list_room.append(Room(**new_room))
+        return "add successfully"
 
-#delete number
+
+    #delete number
     def delete(self):
-        args = parser.parse_args()
-        if args in list_room:
-            list_room.remove(args)
+        delete_room = parser.parse_args()
+        for n, i in enumerate(list_room):
+            if i.room_number == delete_room['room_number']:
+                list_room.remove(i)
+                return "room removed"
         else:
             return "you want to delete a non-existent room, enter correctly"
-        return Response(json.dumps(list_room), status=200)
+
 
 
 

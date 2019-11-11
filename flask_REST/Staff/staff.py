@@ -1,32 +1,14 @@
 from flask import request
-from flask_restful import Resource, reqparse, fields, marshal_with
+from flask_restful import Resource, reqparse, marshal_with
 
-
-
-class Worker:
-    def __init__(self, name, passport_id, position, salary):
-        self.name = name
-        self.passport_id = passport_id
-        self.position = position
-        self.salary = salary
-
-list_staff = [Worker("Vira", "RF123456", "manager", 1000),
-             Worker("Nadiia", "KA654321", "cook", 750),
-             Worker("Ljubov", "LM741852", "administrator", 500)]
-
-
-staff_structure = {
-    'name': fields.String,
-    'passport_id': fields.String,
-    'position': fields.String,
-    'salary': fields.Float
-}
+from Staff.structure_staff import staff_structure, list_staff, Worker
 
 parser = reqparse.RequestParser()
 parser.add_argument('passport_id', location=['json'])
 parser.add_argument('name', location=['json'])
 parser.add_argument('position', location=['json'])
 parser.add_argument('salary', location=['json'])
+
 
 class GetStaff(Resource):
     # get info about all staff
