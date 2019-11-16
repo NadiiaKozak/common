@@ -1,0 +1,23 @@
+{% extends "base.html"%}
+{% block title %}add products{% endblock %}
+{% block navbar%}
+<li class="nav-item">
+	<a class="nav-link" href="products">ALL PRODUCTS</a>
+</li>
+{% endblock%}
+{% block info%}
+<body>
+<form method="POST" action="{{ url_for('product.add_product_post') }}" enctype="multipart/form-data">
+	<ul>
+		<li><p>
+			<h3>Name</h3>{{form.name(size=30)}}</p></li>
+		<li><p>
+			<h3>Price</h3>{{form.price(size=10)}}</p></li>
+		<li><p>
+			<h3>Description</h3>{{form.description(cols="40", rows="2")}}</p></li>
+		<p><h4>Add image</h4>{{form.image()}}</p>
+		{{form.submit()}}
+	</ul>
+</form>
+</body>
+{% endblock%}
