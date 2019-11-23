@@ -1,0 +1,23 @@
+{% extends "base_supermarket.html"%}
+{% block title %}add supermarkets{% endblock %}
+{% block navbar%}
+<li class="nav-item">
+    <a class="nav-link" href="supermarkets">ALL SUPERMARKETS</a>
+</li>
+
+{% endblock%}
+{% block info%}
+<body>
+<form method="POST" action="{{ url_for('supermarket.add_supermarket_post') }}" enctype="multipart/form-data">
+	<ul>
+		<li><p>
+			<h3>Name</h3>{{form.name(size=30)}}</p></li>
+		<li><p>
+			<h3>Location</h3>{{form.location(size=30)}}</p></li>
+		<p><h4>Add image</h4>{{form.image()}}</p>
+		{{form.submit()}}
+	</ul>
+</form>
+</body>
+{% endblock%}
+

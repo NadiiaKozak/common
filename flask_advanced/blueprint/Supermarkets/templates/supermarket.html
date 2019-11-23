@@ -1,0 +1,17 @@
+{% extends "base_supermarket.html"%}
+{% block title %}Supermarket{% endblock %}
+{% block navbar%}
+<li class="nav-item">
+    <a href="{{ url_for('supermarket.get_supermarkets') }}" style="color: white">SUPERMARKETS</a>
+</li>
+{% endblock%}
+{% block info%}
+<body>
+<h1 style="text-align:center;">{{supermarket['name']}}</h1>
+{% set picture = supermarket['img_name'] %}
+<img src="{{url_for('supermarket.static', filename=picture)}}" width="280px" height="150px">
+<p>Name : {{supermarket['name']}}</p>
+<p>Location: {{supermarket['location']}}</p>
+<br>
+</body>
+{% endblock%}

@@ -1,0 +1,12 @@
+{% extends "base.html"%}
+{% block title %}{{title}}{% endblock %}
+{% block info%}
+<h1 style="text-align:center;">{{title}}</h1>
+<div id="images">
+    {% set picture = picture %}
+    <img src="{{url_for('static', filename=picture)}}" width="280px" height="150px">
+</div>
+<br>
+<p>{{text}}</p>
+
+{% endblock%}
