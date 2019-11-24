@@ -45,7 +45,7 @@ class GetTenants(Resource):
         return "add successfully"
     
 
-    # delete staff
+    # delete tenant
     def delete(self):
         delete_tenant = Tenant.query.get(parser_tenant.parse_args().get('id'))
         db.session.delete(delete_tenant)
