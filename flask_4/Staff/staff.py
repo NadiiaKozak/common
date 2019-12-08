@@ -42,14 +42,17 @@ class GetStaff(Resource):
         db.session.add(new_staff)
         db.session.commit()
         return "add successfully"
-    
-    #delete staff
-    def delete(self):
-        delete_staff = Staff.query.get(parser_staff.parse_args().get('staff_id'))
-        db.session.delete(delete_staff)
-        db.session.commit()
-        return "staff removed"
 
+    # delete staff
+    def delete(self):
+        args = parser_staff.parse_args()
+        delete_staff = Staff.query.get(args['staff_id'])
+        if delete_staff:
+            db.session.delete(delete_staff)
+            db.session.commit()
+            return "staff removed"
+        else:
+            return "you want to delete a non-existent staff, enter correctly"
 
 
 class StaffRoom(Resource):

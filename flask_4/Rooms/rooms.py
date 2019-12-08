@@ -46,9 +46,15 @@ class Rooms(Resource):
         db.session.commit()
         return "add successfully"
 
+
     # delete room
     def delete(self):
-        delete_room = Room.query.get(parser_room.parse_args().get('number'))
-        db.session.delete(delete_room)
-        db.session.commit()
-        return "room removed"
+        args = parser_room.parse_args()
+        delete_room = Room.query.get(args['number'])
+        if delete_room:
+            db.session.delete(delete_room)
+            db.session.commit()
+            return "room removed"
+        else:
+            return "you want to delete a non-existent room, enter correctly"
+

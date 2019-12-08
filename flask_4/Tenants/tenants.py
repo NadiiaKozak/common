@@ -43,14 +43,18 @@ class GetTenants(Resource):
         db.session.add(me)
         db.session.commit()
         return "add successfully"
-    
 
-    # delete staff
+    # delete tenant
     def delete(self):
-        delete_tenant = Tenant.query.get(parser_tenant.parse_args().get('id'))
-        db.session.delete(delete_tenant)
-        db.session.commit()
-        return "tenant removed"
+        args = parser_tenant.parse_args()
+        delete_tenant = Tenant.query.get(args['id'])
+        if delete_tenant:
+            db.session.delete(delete_tenant)
+            db.session.commit()
+            return "tenant removed"
+        else:
+            return "you want to delete a non-existent tenant, enter correctly"
+
 
 class TenantRoom(Resource):
     @marshal_with(room_tenant)
