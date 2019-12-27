@@ -1,0 +1,16 @@
+<html>
+<head>
+    <title>Pokemon</title>
+</head>
+<body>
+{% if latest_pokemon_list %}
+    <ul>
+    {% for pokemon in latest_pokemon_list %}
+        <li><a href="{{ pokemon}}">{{ pokemon }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+</body>
+</html>
