@@ -20,7 +20,7 @@ from django.urls import path
 from .views import health_check, index, pokemons, pokemon
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('healthcheck/', health_check, name='health_check'),
     path('index/', index, name='index'),
     path('pokemons/', pokemons, name='pokemons'),
