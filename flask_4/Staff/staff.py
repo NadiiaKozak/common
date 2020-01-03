@@ -9,39 +9,37 @@ from models.structure import staff_structure, room_structure
 
 
 class GetStaff(Resource):
+    # get info about particular staff
     # get info about all staff
     @marshal_with(staff_structure)
-    def get(self):
-        return Staff.query.all()
+    def get(self, staff_id=None):
+        if staff_id:
+            staff = Staff.query.get(staff_id)
+            return staff if staff else "no such staff "
+        else:
+            return Staff.query.all()
 
-    # get info about particular tenant
-    @marshal_with(staff_structure)
+    # add a new staff
     def post(self):
-        args = parser_staff.parse_args()
-        particular_staff = Staff.query.get(args['staff_id'])
-        return particular_staff if particular_staff else "no such tenant "
+        staff = json.loads(request.data)
+        new_staff = Staff(**staff)
+        db.session.add(new_staff)
+        db.session.commit()
+        return "add successfully"
 
     # update info about staff
     @marshal_with(staff_structure)
     def patch(self):
         args_staff = parser_staff.parse_args()
         row = Staff.query.filter_by(staff_id=args_staff['staff_id']).first()
-        if args_staff['staff_id'] is not None: row.staff_id = args_staff['staff_id']
-        if args_staff['name'] is not None: row.name = args_staff['name']
-        if args_staff['passport_id'] is not None: row.passport_id = args_staff['passport_id']
-        if args_staff['position'] is not None: row.position = args_staff['position']
-        if args_staff['salary'] is not None: row.salary = args_staff['salary']
+        if args_staff['staff_id']: row.staff_id = args_staff['staff_id']
+        if args_staff['name']: row.name = args_staff['name']
+        if args_staff['passport_id']: row.passport_id = args_staff['passport_id']
+        if args_staff['position']: row.position = args_staff['position']
+        if args_staff['salary']: row.salary = args_staff['salary']
         Staff.query.order_by(Staff.staff_id).all()
         db.session.commit()
         return "the changes were successful"
-
-    # add a new staff
-    def put(self):
-        staff = json.loads(request.data)
-        new_staff = Staff(**staff)
-        db.session.add(new_staff)
-        db.session.commit()
-        return "add successfully"
 
     # delete staff
     def delete(self):

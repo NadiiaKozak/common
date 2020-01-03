@@ -10,42 +10,44 @@ from models.structure import room_structure
 
 class Rooms(Resource):
     # get info about all rooms
-    @marshal_with(room_structure)
-    def get(self):
-        return Room.query.all()
-
     # get information about a particular room
-    # get information on all available rooms (use filter)
-    # get information about all closed rooms (use filter)
     @marshal_with(room_structure)
-    def post(self):
-        args_room = parser_room.parse_args()
-        if args_room['number'] is not None: particular_room = Room.query.get(args_room['number'])
-        if args_room['status'] is not None: particular_room = Room.query.filter_by(status=args_room['status']).all()
-        return particular_room if particular_room else "no such room "
-
-    # update your number information
-    @marshal_with(room_structure)
-    def patch(self):
-        args_room = parser_room.parse_args()
-        row = Room.query.filter_by(number=args_room['number']).first()
-        if args_room['number'] is not None: row.number = args_room['number']
-        if args_room['level'] is not None: row.level = args_room['level']
-        if args_room['status'] is not None: row.status = args_room['status']
-        if args_room['price'] is not None: row.price = args_room['price']
-        if args_room['tenant_id'] is not None: row.tenant_id = args_room['tenant_id']
-        Room.query.order_by(Room.number).all()
-        db.session.commit()
-        return "the changes were successful"
+    def get(self, number_room=None):
+        if number_room:
+            room = Room.query.get(number_room)
+            return room if room else "no such room "
+        else:
+            return Room.query.all()
 
     # add a new room
-    def put(self):
+    def post(self):
         room = json.loads(request.data)
         new_room = Room(**room)
         db.session.add(new_room)
         db.session.commit()
         return "add successfully"
 
+    # update your number information
+    @marshal_with(room_structure)
+    def patch(self):
+        args_room = parser_room.parse_args()
+        row = Room.query.filter_by(number=args_room['number']).first()
+        if args_room['number']: row.number = args_room['number']
+        if args_room['level']: row.level = args_room['level']
+        if args_room['status']: row.status = args_room['status']
+        if args_room['price']: row.price = args_room['price']
+        if args_room['tenant_id']: row.tenant_id = args_room['tenant_id']
+        Room.query.order_by(Room.number).all()
+        db.session.commit()
+        return "the changes were successful"
+
+    # get information on all available rooms (use filter)
+    # get information about all closed rooms (use filter)
+    @marshal_with(room_structure)
+    def put(self):
+        args_room = parser_room.parse_args()
+        if args_room['status']: room_status = Room.query.filter_by(status=args_room['status']).all()
+        return room_status if room_status else "no such room "
 
     # delete room
     def delete(self):
