@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.urls import reverse
 from pytest import raises
 
-from .config import get_pockemon
+from .views import get_pockemon
 
 
 class StatusViewTests(TestCase):
@@ -30,10 +30,6 @@ class StatusViewTests(TestCase):
     def test_pokemons_key_error(self):
         key_pokemon_url = 'name'
         with raises(KeyError) as exc_info:
-            actual_result = get_pockemon()[key_pokemon_url]
+            get_pockemon()[key_pokemon_url]
             raise KeyError("key_pokemon_url must be 'pokemon'")
         assert exc_info.type is KeyError
-
-
-
-
