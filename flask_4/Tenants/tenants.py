@@ -19,12 +19,13 @@ class GetTenants(Resource):
             return Tenant.query.all()
 
     # add a new tenant
+    @marshal_with(tenant_structure)
     def post(self):
         new_tenant = json.loads(request.data)
         me = Tenant(**new_tenant)
         db.session.add(me)
         db.session.commit()
-        return "add successfully"
+        return new_tenant, 201
 
 
     # update info about tenant
@@ -40,7 +41,7 @@ class GetTenants(Resource):
         if args_tenant['address']: row_tenant.address = args_tenant['address']
         Tenant.query.order_by(Tenant.id).all()
         db.session.commit()
-        return "the changes were successful"
+        return row_tenant, 200
 
     # delete tenant
     def delete(self):
@@ -49,7 +50,7 @@ class GetTenants(Resource):
         if delete_tenant:
             db.session.delete(delete_tenant)
             db.session.commit()
-            return "tenant removed"
+            return "tenant removed",200
         else:
             return "you want to delete a non-existent tenant, enter correctly"
 

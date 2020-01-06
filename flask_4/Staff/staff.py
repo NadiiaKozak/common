@@ -20,12 +20,13 @@ class GetStaff(Resource):
             return Staff.query.all()
 
     # add a new staff
+    @marshal_with(staff_structure)
     def post(self):
         staff = json.loads(request.data)
         new_staff = Staff(**staff)
         db.session.add(new_staff)
         db.session.commit()
-        return "add successfully"
+        return new_staff, 201
 
     # update info about staff
     @marshal_with(staff_structure)
@@ -39,7 +40,7 @@ class GetStaff(Resource):
         if args_staff['salary']: row.salary = args_staff['salary']
         Staff.query.order_by(Staff.staff_id).all()
         db.session.commit()
-        return "the changes were successful"
+        return row, 200
 
     # delete staff
     def delete(self):
@@ -48,7 +49,7 @@ class GetStaff(Resource):
         if delete_staff:
             db.session.delete(delete_staff)
             db.session.commit()
-            return "staff removed"
+            return "staff removed", 200
         else:
             return "you want to delete a non-existent staff, enter correctly"
 

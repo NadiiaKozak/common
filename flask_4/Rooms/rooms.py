@@ -20,12 +20,13 @@ class Rooms(Resource):
             return Room.query.all()
 
     # add a new room
+    @marshal_with(room_structure)
     def post(self):
         room = json.loads(request.data)
         new_room = Room(**room)
         db.session.add(new_room)
         db.session.commit()
-        return "add successfully"
+        return new_room, 201
 
     # update your number information
     @marshal_with(room_structure)
@@ -39,7 +40,7 @@ class Rooms(Resource):
         if args_room['tenant_id']: row.tenant_id = args_room['tenant_id']
         Room.query.order_by(Room.number).all()
         db.session.commit()
-        return "the changes were successful"
+        return row, 200
 
     # get information on all available rooms (use filter)
     # get information about all closed rooms (use filter)
@@ -56,7 +57,7 @@ class Rooms(Resource):
         if delete_room:
             db.session.delete(delete_room)
             db.session.commit()
-            return "room removed"
+            return "room removed", 200
         else:
             return "you want to delete a non-existent room, enter correctly"
 
